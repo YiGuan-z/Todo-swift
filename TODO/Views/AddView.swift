@@ -27,16 +27,38 @@ struct AddView: View {
                             .frame(height: 55)
                             .background(Color(UIColor.secondarySystemBackground))
                             .cornerRadius(10)
+                        ZStack{
+                            //FIXME: dark and light check not effective
+                            if AppState.userInterfaceStyle == .dark{
+                                Color.blue.opacity(0.8)
+                            }else{
+                                Color.yellow.opacity(0.8)
+                            }
+                            MarkDownTextView(markDownText: $conetnt)
+                                .allowVerticalPull()
+                                .frame(height: AppState.screenHight*0.3)
+                                .opacity(0.7)
+                        }
+                        ZStack{
+                            //FIXME: dark and light check not effective
+                            if AppState.userInterfaceStyle == .dark{
+                                Color.blue.opacity(0.8)
+                            }else{
+                                Color.yellow.opacity(0.8)
+                            }
+                            TextEditor(text: $conetnt)
+                                .frame(height: AppState.screenHight*0.3)
+                                .opacity(0.7)
+                        }
                         
-                        TextEditor(text: $conetnt)
-                            .frame(height: AppState.screenHight*0.6)
+                        
                     }
                     .padding(14)
                     .navigationTitle("添加活动")
                     .alert(isPresented: $showAlert, content: getAlert)
                 }
                 Spacer()
-                
+                    
                 bottomfloatingButton
                     .padding(14)
             }
@@ -67,12 +89,12 @@ struct AddView: View {
 extension AddView{
     private var bottomfloatingButton:some View{
         HStack{
-            NavigationLink {
-                ShowMarkDownView(content: $conetnt)
-            } label: {
-                Text("查看效果")
-                    .withTextToButtonLabel(fontColor: .white, font: .headline, backgroundColor: .green)
-            }
+//            NavigationLink {
+//                ShowMarkDownView(content: $conetnt)
+//            } label: {
+//                Text("查看效果")
+//                    .withTextToButtonLabel(fontColor: .white, font: .headline, backgroundColor: .green)
+//            }
             
             Button(action: saveButtonPressed, label: {
                 Text("save".uppercased())

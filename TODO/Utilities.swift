@@ -31,8 +31,11 @@ final class AppState:ObservableObject{
     //每个模型的宽度
     static let screenWidth = UIScreen.main.bounds.width
     /// 检查暗黑模式
+    /// FIXME: dark and light check not effective
     static var userInterfaceStyle:UIUserInterfaceStyle {
-        UITraitCollection.current.userInterfaceStyle
+        get{
+            UITraitCollection.current.userInterfaceStyle
+        }
     }
 }
 
@@ -109,11 +112,14 @@ extension Binding{
 }
 
 extension Sequence where Element:Sequence{
+    /// 打平
+    /// - Returns: [Element.Element]
     func flatten()->[Element.Element]{
         flatMap{ $0 }
     }
 }
 
+/// 为Button按钮的label选项的text进行统一设置
 struct TextToButtonLabelModifier:ViewModifier{
     let fontColor:Color
     let font:Font
@@ -144,15 +150,7 @@ extension SwiftUI.Text{
     }
 }
 
-
-
-struct MarkDownView:View {
-    let markDownText:String
-    var body: some View {
-        Text(markdown: markDownText)
-    }
-}
-
+/// 用于展示Markdown文本
 struct MarkDownTextView:UIViewRepresentable{
     @Binding var markDownText:String
     @ViewStorage var markdownosaur:Markdownosaur = Markdownosaur()
@@ -161,6 +159,11 @@ struct MarkDownTextView:UIViewRepresentable{
     let darkFontColor:UIColor
     let lightFontColor:UIColor
     
+    /// 用于展示Markdown
+    /// - Parameters:
+    ///   - markDownText: 待解析的Markdown文本
+    ///   - darkFontColor: dark模式下使用的字体颜色
+    ///   - lightFontColor: light模式下使用的颜色
     init(markDownText: Binding<String>,darkFontColor:UIColor = .white,lightFontColor:UIColor = .darkText) {
         self._markDownText = markDownText
         self.darkFontColor = darkFontColor
@@ -179,7 +182,7 @@ struct MarkDownTextView:UIViewRepresentable{
     func updateUIView(_ uiView: UITextView, context: Context) {
         let doc = Document(parsing: markDownText)
         uiView.attributedText = markdownosaur.attributedString(from: doc)
-        uiView.textColor = AppState.userInterfaceStyle == .dark ? .white : .black
+        uiView.textColor = AppState.userInterfaceStyle == .dark ? self.darkFontColor : self.lightFontColor
     }
     
     private func getUITextView()->UITextView{
@@ -219,26 +222,64 @@ extension MarkDownTextView{
 }
 
 extension View{
-    func ignoreSafeAreaView(color:Color,alignment:Alignment = .center,@ViewBuilder action:()->some View) -> some View {
+    func ignoreSafeAreaView<Color:View>(color:()->Color,alignment:Alignment = .center,@ViewBuilder action:()->some View) -> some View {
         
         return ZStack(alignment:alignment){
-            color.ignoresSafeArea()
+            color().ignoresSafeArea()
             action()
         }
     }
 }
 
 
-struct PreView:View {
-    @State var markDown:String = "## Documentation *歪斜的a*"
-    var body: some View {
-        MarkDownTextView(markDownText: $markDown)
-            .allowVerticalPull()
-        TextField("input", text: $markDown)
+func load<T: Decodable>(_ filename:String) -> T {
+    let data:Data
+    
+    guard let file = Bundle.main.url(forResource: filename, withExtension: nil) else{
+        fatalError("Couldn't find \(filename) in main bundle.")
+    }
+    
+    do{
+        data = try Data(contentsOf: file)
+    }catch{
+        fatalError("Couldn't load \(filename) form main bundle:\n\(error)")
+    }
+    
+    do{
+        let decoder = JSONDecoder()
+        return try decoder.decode(T.self, from: data)
+    }catch{
+        fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
     }
 }
 
-#Preview("textButton"){
-    PreView()
-    
+
+
+fileprivate struct PreView:View {
+    @State var markDown:String = "## Documentation *歪斜的a*"
+    var body: some View {
+        VStack{
+            MarkDownTextView(markDownText: $markDown)
+                .allowVerticalPull()
+            ZStack(alignment:.topLeading){
+                LinearGradient(colors: [.yellow.opacity(0.7),.orange.opacity(0.7)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                TextEditor(text: $markDown)
+                    .border(Color.black)
+                    .opacity(0.7)
+            }
+                
+        }
+        .padding()
+    }
 }
+
+
+#Preview("dark"){
+    PreView()
+        .preferredColorScheme(.dark)
+}
+#Preview("light"){
+    PreView()
+        .preferredColorScheme(.light)
+}
+

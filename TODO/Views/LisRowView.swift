@@ -17,16 +17,18 @@ struct LisRowView: View {
     }
     
     var body: some View {
-        HStack{
-            Image(systemName: item.isCompleted ? "checkmark.circle" : "circle")
-                .foregroundColor(item.isCompleted ? .green : .red)
-            Text(item.title)
-//            if let dateFormatter{
-//                Text(dateFormatter.string(from: item.timestamp))
-//            }else{
-//                Text(item.timestamp.formatted())
-//            }
-        }
+        NavigationLink(destination: {
+            ItemInfoView(model: item)
+        }, label: {
+            HStack{
+                Image(systemName: item.isCompleted ? "checkmark.circle" : "circle")
+                    .foregroundColor(item.isCompleted ? .green : .red)
+                Text(item.title)
+                    .foregroundColor(.black)
+            }
+        })
+        
+        
     }
 }
 
@@ -36,8 +38,14 @@ fileprivate class data {
 }
 #Preview {
     Group{
-        LisRowView(item: data.item1)
-        LisRowView(item: data.item2)
+        NavigationView{
+            ZStack{
+                Color.green.opacity(0.7).ignoresSafeArea()
+                VStack{
+                    LisRowView(item: data.item1)
+                    LisRowView(item: data.item2)
+                }
+            }
+        }
     }
-    .previewLayout(.sizeThatFits)
 }
