@@ -4,9 +4,9 @@
 
 ## 功能
 
-[√] MarkDown文本展示
-[√] 计划事件的添加
-[]  计划任务的页面展示
+- [√] MarkDown文本展示
+- [√] 计划事件的添加
+- []  计划任务的页面展示
 
 ---
 
@@ -18,6 +18,6 @@ I recently learned Swift and tried to write my first App with it. As for why it'
 
 ## Features
 
-[√] Markdown text display
-[√] Adding scheduled events
-[]  Display of scheduled tasks page
+- [√] Markdown text display
+- [√] Adding scheduled events
+- []  Display of scheduled tasks page

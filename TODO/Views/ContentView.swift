@@ -8,26 +8,34 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     @EnvironmentObject private var listViewModel:ListViewModel
+ 
     var body: some View{
-        VStack{
-            ZStack{
-                if listViewModel.items.isEmpty{
-                    NoItemsView()
-                        .transition(.opacity.animation(.bouncy))
-                }else{
-                    todoListView
+        ZStack{
+            LinearGradient(colors: [.black.opacity(0.7),.blue.opacity(0.7)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                .ignoresSafeArea()
+            
+            VStack{
+                ZStack{
+                    if listViewModel.items.isEmpty{
+                        NoItemsView()
+                            .transition(.opacity.animation(.bouncy))
+                    }else{
+                        todoListView
+                    }
+                    
                 }
+                .navigationTitle("Todo list")
+                .navigationBarItems(
+                    leading: EditButton(),
+                    trailing: 
+                        NavigationLink("Add",destination: AddView())
+                )
+                
                 
             }
-            .navigationTitle("Todo list")
-            .navigationBarItems(
-                leading: EditButton(),
-                trailing: NavigationLink("Add", destination: AddView())
-            )
-            
         }
-        
     }
 }
 
@@ -36,9 +44,7 @@ extension ContentView{
         List{
             ForEach(listViewModel.items){ item in
                 LisRowView(item: item)
-                    .onTapGesture {
-                       //TODO 在这里转入TODO的详情
-                    }
+                    .listRowBackground(Color.white.opacity(0.1))
                     .swipeActions{
                         Button{
                             if let index = listViewModel.items.firstIndex (where:{ $0.id == item.id }){
@@ -51,7 +57,6 @@ extension ContentView{
                         }
                         .tint(.red)
                     }
-                
                     .swipeActions(edge:.leading){
                         Button {
                             withAnimation(.linear){
@@ -62,6 +67,8 @@ extension ContentView{
                         }
                         .tint(item.isCompleted ? .yellow : .green)
                     }
+                    
+                    
             }
             .onDelete(perform: listViewModel.deleteItem(indexSet:))
             .onMove(perform: listViewModel.moveItem(from:to:))
@@ -69,12 +76,13 @@ extension ContentView{
             
         }
         .listStyle(PlainListStyle())
+
     }
 }
 
 #Preview {
     NavigationView{
-        ContentView()       
+        ContentView()
     }
     .environmentObject(ListViewModel())
 }
