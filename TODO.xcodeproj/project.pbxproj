@@ -10,6 +10,12 @@
 		E1049CFA2A9916640002570F /* NoItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1049CF92A9916640002570F /* NoItemsView.swift */; };
 		E1049CFC2A99173D0002570F /* LisRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1049CFB2A99173D0002570F /* LisRowView.swift */; };
 		E1049CFE2A991D550002570F /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1049CFD2A991D550002570F /* AddView.swift */; };
+		E12F472B2A9A6073001C4362 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12F472A2A9A6073001C4362 /* Utilities.swift */; };
+		E12F472D2A9A623B001C4362 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12F472C2A9A623B001C4362 /* Constants.swift */; };
+		E1724E772A9B2C250000AEFF /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = E1724E762A9B2C250000AEFF /* Markdown */; };
+		E1724E7A2A9B2EE50000AEFF /* Markdownosaur in Frameworks */ = {isa = PBXBuildFile; productRef = E1724E792A9B2EE50000AEFF /* Markdownosaur */; };
+		E1724E7C2A9B499E0000AEFF /* ShowMarkDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1724E7B2A9B499E0000AEFF /* ShowMarkDownView.swift */; };
+		E1724E7E2A9B4E850000AEFF /* ListViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1724E7D2A9B4E850000AEFF /* ListViewModel_Tests.swift */; };
 		E1EAA8BC2A98E03B0057BEDF /* TODOApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAA8BB2A98E03B0057BEDF /* TODOApp.swift */; };
 		E1EAA8BE2A98E03B0057BEDF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAA8BD2A98E03B0057BEDF /* ContentView.swift */; };
 		E1EAA8C22A98E03D0057BEDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1EAA8C12A98E03D0057BEDF /* Assets.xcassets */; };
@@ -42,6 +48,11 @@
 		E1049CF92A9916640002570F /* NoItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoItemsView.swift; sourceTree = "<group>"; };
 		E1049CFB2A99173D0002570F /* LisRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LisRowView.swift; sourceTree = "<group>"; };
 		E1049CFD2A991D550002570F /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
+		E12F472A2A9A6073001C4362 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		E12F472C2A9A623B001C4362 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E1724E7B2A9B499E0000AEFF /* ShowMarkDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowMarkDownView.swift; sourceTree = "<group>"; };
+		E1724E7D2A9B4E850000AEFF /* ListViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel_Tests.swift; sourceTree = "<group>"; };
+		E1724E7F2A9B512F0000AEFF /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E1EAA8B82A98E03B0057BEDF /* TODO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TODO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1EAA8BB2A98E03B0057BEDF /* TODOApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODOApp.swift; sourceTree = "<group>"; };
 		E1EAA8BD2A98E03B0057BEDF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -61,6 +72,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1724E7A2A9B2EE50000AEFF /* Markdownosaur in Frameworks */,
+				E1724E772A9B2C250000AEFF /* Markdown in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +97,7 @@
 		E1EAA8AF2A98E03B0057BEDF = {
 			isa = PBXGroup;
 			children = (
+				E1724E7F2A9B512F0000AEFF /* README.md */,
 				E1EAA8BA2A98E03B0057BEDF /* TODO */,
 				E1EAA8CD2A98E03E0057BEDF /* TODOTests */,
 				E1EAA8D72A98E03E0057BEDF /* TODOUITests */,
@@ -110,6 +124,8 @@
 				E1EAA8BB2A98E03B0057BEDF /* TODOApp.swift */,
 				E1EAA8C12A98E03D0057BEDF /* Assets.xcassets */,
 				E1EAA8C32A98E03D0057BEDF /* Preview Content */,
+				E12F472A2A9A6073001C4362 /* Utilities.swift */,
+				E12F472C2A9A623B001C4362 /* Constants.swift */,
 			);
 			path = TODO;
 			sourceTree = "<group>";
@@ -126,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				E1EAA8CE2A98E03E0057BEDF /* TODOTests.swift */,
+				E1724E7D2A9B4E850000AEFF /* ListViewModel_Tests.swift */,
 			);
 			path = TODOTests;
 			sourceTree = "<group>";
@@ -162,6 +179,7 @@
 				E1049CF92A9916640002570F /* NoItemsView.swift */,
 				E1049CFB2A99173D0002570F /* LisRowView.swift */,
 				E1049CFD2A991D550002570F /* AddView.swift */,
+				E1724E7B2A9B499E0000AEFF /* ShowMarkDownView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -182,6 +200,10 @@
 			dependencies = (
 			);
 			name = TODO;
+			packageProductDependencies = (
+				E1724E762A9B2C250000AEFF /* Markdown */,
+				E1724E792A9B2EE50000AEFF /* Markdownosaur */,
+			);
 			productName = TODO;
 			productReference = E1EAA8B82A98E03B0057BEDF /* TODO.app */;
 			productType = "com.apple.product-type.application";
@@ -254,6 +276,10 @@
 				Base,
 			);
 			mainGroup = E1EAA8AF2A98E03B0057BEDF;
+			packageReferences = (
+				E1724E752A9B2C250000AEFF /* XCRemoteSwiftPackageReference "swift-markdown" */,
+				E1724E782A9B2EE50000AEFF /* XCRemoteSwiftPackageReference "Markdownosaur" */,
+			);
 			productRefGroup = E1EAA8B92A98E03B0057BEDF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -300,9 +326,12 @@
 				E1EAA8E92A98E1560057BEDF /* ItemModel.swift in Sources */,
 				E1EAA8BE2A98E03B0057BEDF /* ContentView.swift in Sources */,
 				E1EAA8EC2A98E6210057BEDF /* ListViewModel.swift in Sources */,
+				E1724E7C2A9B499E0000AEFF /* ShowMarkDownView.swift in Sources */,
 				E1EAA8BC2A98E03B0057BEDF /* TODOApp.swift in Sources */,
 				E1049CFC2A99173D0002570F /* LisRowView.swift in Sources */,
+				E12F472B2A9A6073001C4362 /* Utilities.swift in Sources */,
 				E1049CFA2A9916640002570F /* NoItemsView.swift in Sources */,
+				E12F472D2A9A623B001C4362 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +339,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1724E7E2A9B4E850000AEFF /* ListViewModel_Tests.swift in Sources */,
 				E1EAA8CF2A98E03E0057BEDF /* TODOTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -391,7 +421,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -448,7 +478,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -634,6 +664,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E1724E752A9B2C250000AEFF /* XCRemoteSwiftPackageReference "swift-markdown" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-markdown";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.0;
+			};
+		};
+		E1724E782A9B2EE50000AEFF /* XCRemoteSwiftPackageReference "Markdownosaur" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/christianselig/Markdownosaur";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E1724E762A9B2C250000AEFF /* Markdown */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1724E752A9B2C250000AEFF /* XCRemoteSwiftPackageReference "swift-markdown" */;
+			productName = Markdown;
+		};
+		E1724E792A9B2EE50000AEFF /* Markdownosaur */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1724E782A9B2EE50000AEFF /* XCRemoteSwiftPackageReference "Markdownosaur" */;
+			productName = Markdownosaur;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E1EAA8B02A98E03B0057BEDF /* Project object */;
 }

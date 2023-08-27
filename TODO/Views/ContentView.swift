@@ -16,57 +16,60 @@ struct ContentView: View {
                     NoItemsView()
                         .transition(.opacity.animation(.bouncy))
                 }else{
-                    List{
-                        ForEach(listViewModel.items){ item in
-                            LisRowView(item: item)
-                                .swipeActions{
-                                    Button{
-                                        if let index = listViewModel.items.firstIndex (where:{ $0.id == item.id }){
-                                            let indexSet = IndexSet(integer: index)
-                                            listViewModel.deleteItem(indexSet: indexSet)
-                                        }
-                                        
-                                    } label: {
-                                        Text("删除")
-                                    }
-                                    .tint(.red)
-                                }
-                            
-                                .swipeActions(edge:.leading){
-                                    Button {
-                                        withAnimation(.linear){
-                                            listViewModel.updateItem(item)
-                                        }
-                                    } label: {
-                                        Text(item.isCompleted ? "未完成":"已完成")
-                                    }
-                                    .tint(item.isCompleted ? .yellow : .green)
-                                }
-                        }
-                        .onDelete(perform: listViewModel.deleteItem(indexSet:))
-                        .onMove(perform: listViewModel.moveItem(from:to:))
-                        
-                        
-                    }
-                    .listStyle(PlainListStyle())
+                    todoListView
                 }
                 
             }
             .navigationTitle("Todo list")
-            .navigationBarItems(leading: EditButton(),trailing: NavigationLink("Add", destination: AddView()))
+            .navigationBarItems(
+                leading: EditButton(),
+                trailing: NavigationLink("Add", destination: AddView())
+            )
             
-            Button(action: {
-                /// TODO: 被选择时显示全部已完成和全部未完成
-            }, label: {
-                Text("Button")
-            })
         }
         
     }
 }
 
 extension ContentView{
-    
+    private var todoListView:some View{
+        List{
+            ForEach(listViewModel.items){ item in
+                LisRowView(item: item)
+                    .onTapGesture {
+                       //TODO 在这里转入TODO的详情
+                    }
+                    .swipeActions{
+                        Button{
+                            if let index = listViewModel.items.firstIndex (where:{ $0.id == item.id }){
+                                let indexSet = IndexSet(integer: index)
+                                listViewModel.deleteItem(indexSet: indexSet)
+                            }
+                            
+                        } label: {
+                            Text("删除")
+                        }
+                        .tint(.red)
+                    }
+                
+                    .swipeActions(edge:.leading){
+                        Button {
+                            withAnimation(.linear){
+                                listViewModel.updateItem(item)
+                            }
+                        } label: {
+                            Text(item.isCompleted ? "未完成":"已完成")
+                        }
+                        .tint(item.isCompleted ? .yellow : .green)
+                    }
+            }
+            .onDelete(perform: listViewModel.deleteItem(indexSet:))
+            .onMove(perform: listViewModel.moveItem(from:to:))
+            
+            
+        }
+        .listStyle(PlainListStyle())
+    }
 }
 
 #Preview {

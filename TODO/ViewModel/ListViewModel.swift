@@ -14,7 +14,7 @@ class ListViewModel:ObservableObject{
         }
     }
     
-    let itemsKey:String = "items_list"
+    static let itemsKey:String = "items_list"
     private var encoder = JSONEncoder()
     private var decoder = JSONDecoder()
     
@@ -23,7 +23,7 @@ class ListViewModel:ObservableObject{
     }
     
     func loadData(){
-        let data = UserDefaults.standard.data(forKey: itemsKey)
+        let data = UserDefaults.standard.data(forKey: Self.itemsKey)
         
         if let data,let savedItems = try? decoder.decode([ItemModel].self, from: data){
             self.items = savedItems
@@ -32,8 +32,8 @@ class ListViewModel:ObservableObject{
         }
     }
     
-    func addItem(title:String){
-        let newItem = ItemModel(title: title, isCompleted: false)
+    func addItem(title:String,content:String){
+        let newItem = ItemModel(title: title, isCompleted: false,content: content)
         items.append(newItem)
     }
     
@@ -53,8 +53,12 @@ class ListViewModel:ObservableObject{
     
     func saveItems(){
         if let encodeData = try? encoder.encode(items){
-            UserDefaults.standard.set(encodeData, forKey: self.itemsKey)
+            UserDefaults.standard.set(encodeData, forKey: Self.itemsKey)
         }
+    }
+    
+    func clearAll(){
+        UserDefaults.standard.removeObject(forKey:Self.itemsKey)
     }
     
 }

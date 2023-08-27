@@ -16,34 +16,44 @@ struct AddView: View {
     @State var textFieldText:String = ""
     @State var alertTitle:String = ""
     @State var showAlert:Bool = false
+    @State var conetnt:String = ""
     var body: some View {
-        ScrollView{
+//        ScrollView{
             VStack{
-                TextField("在这里输入", text: $textFieldText)
+                TextField("事件名称", text: $textFieldText)
                     .padding(.horizontal)
                     .frame(height: 55)
                     .background(Color(UIColor.secondarySystemBackground))
                     .cornerRadius(10)
                 
-                Button(action: saveButtonPressed, label: {
-                    Text("save".uppercased())
-                        .foregroundColor(.white)
-                        .font(.headline)
-                        .frame(height: 55)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.accentColor)
-                        .cornerRadius(10)
-                })
+                TextEditor(text: $conetnt)
+                    .frame(height: AppState.screenHight*0.6)
+                    .background(Color.red)
+
+                HStack{
+                    NavigationLink {
+                        ShowMarkDownView(content: $conetnt)
+                    } label: {
+                        Text("查看效果")
+                            .withTextToButtonLabel(fontColor: .white, font: .headline, backgroundColor: .green)
+                    }
+
+                    Button(action: saveButtonPressed, label: {
+                        Text("save".uppercased())
+                            .withTextToButtonLabel(fontColor: .white, font: .headline, backgroundColor: .accentColor)
+                    })
+                }
+                
             }
             .padding(14)
-        }
-        .navigationTitle("添加事件")
+//        }
+        .navigationTitle("添加活动")
         .alert(isPresented: $showAlert, content: getAlert)
     }
     
     func saveButtonPressed(){
         if textIsApproriate(){
-            self.listViewModel.addItem(title: self.textFieldText)
+            self.listViewModel.addItem(title: self.textFieldText,content: self.conetnt)
             presentationMode.wrappedValue.dismiss()
         }
     }
@@ -56,8 +66,6 @@ struct AddView: View {
         }
         return true
     }
-    
-    
     
     func getAlert()->Alert{
         return Alert(title: Text(self.alertTitle))

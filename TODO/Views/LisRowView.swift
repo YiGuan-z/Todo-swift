@@ -31,8 +31,8 @@ struct LisRowView: View {
 }
 
 fileprivate class data {
-    static var item1 = ItemModel(title: "write a book", isCompleted: false)
-    static var item2 = ItemModel(title: "write a paper", isCompleted: true)
+    static var item1 = ItemModel(title: "write a book", isCompleted: false,content: "# 你好")
+    static var item2 = ItemModel(title: "write a paper", isCompleted: true,content: "# 你 *卧槽*")
 }
 #Preview {
     Group{
