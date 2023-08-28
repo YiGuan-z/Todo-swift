@@ -8,14 +8,60 @@
 import SwiftUI
 
 struct ItemInfoView: View {
-    let model:ItemModel
+    private let model:ItemModel
+    @Environment(\.presentationMode) private var presentationMode
+    @EnvironmentObject private var vm:ListViewModel
+    init(model: ItemModel) {
+        self.model = model
+    }
     var body: some View {
-        ZStack{
+        VStack{
+            Text(model.title)
+                .font(.title)
+                .frame(maxWidth: .infinity)
+                .overlay(alignment: .leading) {
+                    Image(systemName: "arrowshape.turn.up.backward")
+                        .onTapGesture {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                }
+            
+            Text(model.timestamp.formatted())
+            Rectangle()
+                .frame(height: 2)
+            
             MarkDownTextView(markDownText: .constant(model.conetnt))
+                .allowVerticalPull()
+            
+            
+            
+            HStack{
+                Button(action: {
+                    if let index = vm.items.firstIndex(where: {$0.id == model.id}){
+                        vm.deleteItem(indexSet: IndexSet(integer: index))
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }, label: {
+                    Text("删除")
+                        .withTextToButtonLabel(fontColor: .white, font: .title, backgroundColor: .red)
+                })
+                Button(action: {
+                    vm.updateItem(model)
+                }, label: {
+                    Text(model.isCompleted ? "已完成" : "未完成")
+                        .withTextToButtonLabel(fontColor: .white, font: .title, backgroundColor: model.isCompleted ? .green : .yellow)
+                })
+            }
         }
+        .padding()
+//        .navigationBarBackButtonHidden()
+        .navigationBarHidden(true)
     }
 }
 
 #Preview {
-    ItemInfoView(model: ItemModel(title: "明天打游戏", isCompleted: false, content: "# 游戏历史 \r\n ## 游戏是我国一大传统，不得不品尝"))
+    NavigationView{
+        ItemInfoView(model: ItemModel(title: "明天打游戏", isCompleted: false, content: "# 游戏历史 \r\n ## 游戏是我国一大传统，不得不品尝"))
+            .environmentObject(ListViewModel())
+    }
 }

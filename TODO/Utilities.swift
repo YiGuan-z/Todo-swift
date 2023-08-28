@@ -32,11 +32,20 @@ final class AppState:ObservableObject{
     static let screenWidth = UIScreen.main.bounds.width
     /// 检查暗黑模式
     /// FIXME: dark and light check not effective
+    /// 好像只是模拟器展示错误，实机发现没这个问题
     static var userInterfaceStyle:UIUserInterfaceStyle {
         get{
             UITraitCollection.current.userInterfaceStyle
         }
     }
+}
+
+final class Theme{
+    static var blackAndBlueGradient:LinearGradient{
+        LinearGradient(colors: [.black.opacity(0.7),.blue.opacity(0.7)], startPoint: .topLeading, endPoint: .bottomTrailing)
+    }
+    static let secondaryAccentColor = Color("SecondaryAccentColor")
+//    static var
 }
 
 extension Collection{
@@ -262,7 +271,6 @@ fileprivate struct PreView:View {
             MarkDownTextView(markDownText: $markDown)
                 .allowVerticalPull()
             ZStack(alignment:.topLeading){
-                LinearGradient(colors: [.yellow.opacity(0.7),.orange.opacity(0.7)], startPoint: .topLeading, endPoint: .bottomTrailing)
                 TextEditor(text: $markDown)
                     .border(Color.black)
                     .opacity(0.7)
