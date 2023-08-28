@@ -43,13 +43,13 @@ struct ItemInfoView: View {
                     }
                 }, label: {
                     Text("删除")
-                        .withTextToButtonLabel(fontColor: .white, font: .title, backgroundColor: .red)
+                        .withTextToButtonLabel(fontColor: .white, font: .title3.bold(), backgroundColor: .red)
                 })
                 Button(action: {
                     vm.updateItem(model)
                 }, label: {
-                    Text(model.isCompleted ? "已完成" : "未完成")
-                        .withTextToButtonLabel(fontColor: .white, font: .title, backgroundColor: model.isCompleted ? .green : .yellow)
+                    Text(model.isCompleted ? "标记为未完成" : "标记为已完成")
+                        .withTextToButtonLabel(fontColor: .white, font: .title3.bold(), backgroundColor: model.isCompleted ? .yellow : .green)
                 })
             }
         }
