@@ -13,14 +13,14 @@ struct ContentView: View {
  
     var body: some View{
         ZStack{
-            LinearGradient(colors: [.black.opacity(0.7),.blue.opacity(0.7)], startPoint: .topLeading, endPoint: .bottomTrailing)
-                .ignoresSafeArea()
+            Theme.blackAndBlueGradient.ignoresSafeArea()
             
             VStack{
                 ZStack{
                     if listViewModel.items.isEmpty{
                         NoItemsView()
                             .transition(.opacity.animation(.bouncy))
+                            .foregroundColor(.white)
                     }else{
                         todoListView
                     }
@@ -46,15 +46,9 @@ extension ContentView{
                 LisRowView(item: item)
                     .listRowBackground(Color.white.opacity(0.1))
                     .swipeActions{
-                        Button{
-                            if let index = listViewModel.items.firstIndex (where:{ $0.id == item.id }){
-                                let indexSet = IndexSet(integer: index)
-                                listViewModel.deleteItem(indexSet: indexSet)
-                            }
-                            
-                        } label: {
+                        Button(action: {deleteItem(item: item)}, label: {
                             Text("删除")
-                        }
+                        })
                         .tint(.red)
                     }
                     .swipeActions(edge:.leading){
@@ -78,6 +72,16 @@ extension ContentView{
         .listStyle(PlainListStyle())
 
     }
+    
+    private func deleteItem(item:ItemModel){
+        if let index = listViewModel.items.firstIndex (where:{ $0.id == item.id }){
+            let indexSet = IndexSet(integer: index)
+            withAnimation(.spring){
+                listViewModel.deleteItem(indexSet: indexSet)
+            }
+        }
+    }
+    
 }
 
 #Preview {

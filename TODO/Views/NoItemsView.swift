@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NoItemsView: View {
     @State var animate:Bool = false
-    let secondaryAccentColor = Color("SecondaryAccentColor")
+    let secondaryAccentColor = Theme.secondaryAccentColor
     var body: some View {
         ScrollView{
             VStack(spacing:10){
@@ -18,6 +18,7 @@ struct NoItemsView: View {
                     .fontWeight(.semibold)
                 Text("你是一个有规划的人吗？点击添加按钮为你添加更多代办项目")
                     .padding(.bottom,20)
+                    
                 
                 
                 NavigationLink {
